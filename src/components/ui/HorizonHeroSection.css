@@ -1,0 +1,268 @@
+/* Hero Container */
+.hero-container {
+  position: relative;
+  width: 100%;
+  min-height: 300vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.hero-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* Side Menu */
+.side-menu {
+  position: fixed;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.menu-icon span {
+  width: 2rem;
+  height: 2px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.menu-icon:hover span {
+  background: #0ea5e9;
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: white;
+  opacity: 0.7;
+}
+
+/* Hero Content */
+.hero-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  pointer-events: none;
+}
+
+.cosmos-content {
+  max-width: 90vw;
+}
+
+.hero-title {
+  font-size: clamp(4rem, 15vw, 12rem);
+  font-weight: 900;
+  color: white;
+  line-height: 0.9;
+  letter-spacing: 0.05em;
+  margin: 0;
+  text-transform: uppercase;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.title-char {
+  display: inline-block;
+  transform-origin: bottom;
+}
+
+.hero-subtitle {
+  margin-top: 2rem;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+.cosmos-subtitle {
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subtitle-line {
+  margin: 0.5rem 0;
+  overflow: hidden;
+}
+
+/* Scroll Progress */
+.scroll-progress {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scroll-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: white;
+  opacity: 0.7;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.progress-track {
+  width: 2px;
+  height: 8rem;
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #0ea5e9, #06b6d4);
+  transition: height 0.3s ease;
+}
+
+.section-counter {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  font-family: 'Courier New', monospace;
+}
+
+/* Scroll Sections */
+.scroll-sections {
+  position: relative;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.content-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.content-section .hero-title {
+  font-size: clamp(3rem, 12vw, 10rem);
+}
+
+.content-section .hero-subtitle {
+  margin-top: 2rem;
+  font-size: clamp(0.875rem, 1.5vw, 1.25rem);
+}
+
+/* Cosmos Style */
+.cosmos-style {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .side-menu {
+    left: 1rem;
+    gap: 1rem;
+  }
+
+  .menu-icon {
+    padding: 0.5rem;
+  }
+
+  .menu-icon span {
+    width: 1.5rem;
+  }
+
+  .vertical-text {
+    font-size: 0.75rem;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 12vw, 8rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    padding: 0 1rem;
+  }
+
+  .scroll-progress {
+    right: 1rem;
+    gap: 0.75rem;
+  }
+
+  .progress-track {
+    height: 6rem;
+  }
+
+  .section-counter {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .side-menu {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 10vw, 6rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.75rem, 1.25vw, 1rem);
+  }
+
+  .scroll-progress {
+    display: none;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
