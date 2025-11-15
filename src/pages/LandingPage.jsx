@@ -10,7 +10,7 @@ export default function LandingPage() {
   const navItems = [
     { name: 'Home', url: '#home', icon: Home },
     { name: 'Features', url: '#features', icon: BarChart3 },
-    { name: 'About', url: '#about', icon: Info },
+    { name: 'About', url: '/about', icon: Info },
     { name: 'Login', url: '/login', icon: CreditCard },
   ]
 

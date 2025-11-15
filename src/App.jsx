@@ -4,6 +4,8 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import Dashboard from './pages/Dashboard'
 import ProtectedRoute from './components/ProtectedRoute'
+import AboutPage from './pages/AboutPage'
+import FirebaseTest from './pages/FirebaseTest'
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/firebase-test" element={<FirebaseTest />} />
         <Route 
           path="/dashboard/*" 
           element={

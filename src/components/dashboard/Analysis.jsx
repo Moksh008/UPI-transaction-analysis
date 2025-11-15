@@ -309,7 +309,7 @@ Return as a JSON array of insight strings:
   };
 
   return (
-    <div className="p-6 space-y-6">
+  <div className="p-6 space-y-6 bg-white text-gray-900">
       <div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Data Analysis</h1>
         <p className="text-gray-600">Upload your own CSV data for real-time analysis</p>
@@ -320,7 +320,7 @@ Return as a JSON array of insight strings:
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Upload Data</h2>
         
         {!file ? (
-          <div
+            <div
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
             onDragOver={handleDrag}
@@ -331,11 +331,11 @@ Return as a JSON array of insight strings:
                 : 'border-neutral-600 hover:border-neutral-500'
             }`}
           >
-            <Upload className="w-12 h-12 text-neutral-400 mx-auto mb-4" />
-            <p className="text-white font-medium mb-2">
+            <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <p className="text-gray-900 font-medium mb-2">
               Drag and drop your CSV file here
             </p>
-            <p className="text-neutral-400 text-sm mb-4">or</p>
+            <p className="text-gray-500 text-sm mb-4">or</p>
             <label className="inline-block">
               <input
                 type="file"
@@ -353,21 +353,21 @@ Return as a JSON array of insight strings:
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-neutral-900 rounded-lg border border-neutral-700">
+            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
               <div className="flex items-center gap-3">
-                <FileText className="w-8 h-8 text-blue-400" />
+                <FileText className="w-8 h-8 text-blue-500" />
                 <div>
-                  <p className="text-white font-medium">{file.name}</p>
-                  <p className="text-neutral-400 text-sm">
+                  <p className="text-gray-900 font-medium">{file.name}</p>
+                  <p className="text-gray-500 text-sm">
                     {(file.size / 1024).toFixed(2)} KB
                   </p>
                 </div>
               </div>
               <button
                 onClick={removeFile}
-                className="p-2 hover:bg-neutral-800 rounded-lg transition-colors"
+                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               >
-                <X className="w-5 h-5 text-neutral-400" />
+                <X className="w-5 h-5 text-gray-500" />
               </button>
             </div>
 
@@ -405,26 +405,26 @@ Return as a JSON array of insight strings:
         <>
           {/* AI Insights Section */}
           {generatingInsights ? (
-            <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg p-6 border border-blue-500/20">
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6 border border-gray-100">
               <div className="flex items-center gap-2 mb-4">
-                <Loader2 className="w-6 h-6 text-blue-400 animate-spin" />
-                <h3 className="text-lg font-semibold text-white">Generating AI Insights...</h3>
+                <Loader2 className="w-6 h-6 text-blue-500 animate-spin" />
+                <h3 className="text-lg font-semibold text-gray-900">Generating AI Insights...</h3>
               </div>
-              <p className="text-neutral-400">Analyzing your data to provide intelligent insights...</p>
+              <p className="text-gray-600">Analyzing your data to provide intelligent insights...</p>
             </div>
           ) : aiInsights && aiInsights.length > 0 ? (
-            <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg p-6 border border-blue-500/20">
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-6 border border-gray-100">
               <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="w-6 h-6 text-blue-400" />
-                <h3 className="text-lg font-semibold text-white">AI-Powered Insights</h3>
+                <Sparkles className="w-6 h-6 text-blue-500" />
+                <h3 className="text-lg font-semibold text-gray-900">AI-Powered Insights</h3>
               </div>
               <div className="space-y-3">
                 {aiInsights.map((insight, index) => (
                   <div key={index} className="flex gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-sm font-medium">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-medium">
                       {index + 1}
                     </div>
-                    <p className="text-neutral-200 leading-relaxed">{insight}</p>
+                    <p className="text-gray-700 leading-relaxed">{insight}</p>
                   </div>
                 ))}
               </div>
@@ -432,30 +432,30 @@ Return as a JSON array of insight strings:
           ) : null}
 
           {/* Detected Columns Info */}
-          <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
-            <h3 className="text-lg font-semibold text-white mb-4">Detected Columns</h3>
+          <div className="bg-white rounded-lg p-6 border border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Detected Columns</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <p className="text-sm text-neutral-400 mb-1">Amount Column</p>
-                <p className="text-white font-medium">
+                <p className="text-sm text-gray-500 mb-1">Amount Column</p>
+                <p className="text-gray-900 font-medium">
                   {analysisData.amountColumn || 'Not detected'}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-neutral-400 mb-1">Category Column</p>
-                <p className="text-white font-medium">
+                <p className="text-sm text-gray-500 mb-1">Category Column</p>
+                <p className="text-gray-900 font-medium">
                   {analysisData.categoryColumn || 'Not detected'}
                 </p>
               </div>
               <div>
-                <p className="text-sm text-neutral-400 mb-1">Date Column</p>
-                <p className="text-white font-medium">
+                <p className="text-sm text-gray-500 mb-1">Date Column</p>
+                <p className="text-gray-900 font-medium">
                   {analysisData.dateColumn || 'Not detected'}
                 </p>
               </div>
             </div>
             {(!analysisData.amountColumn || !analysisData.categoryColumn || !analysisData.dateColumn) && (
-              <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded text-yellow-400 text-sm">
+              <div className="mt-4 p-3 bg-yellow-50 border border-yellow-100 rounded text-yellow-600 text-sm">
                 💡 Tip: For better analysis, ensure your CSV has columns with keywords like "amount", "category/type", and "date/year"
               </div>
             )}
@@ -463,44 +463,44 @@ Return as a JSON array of insight strings:
 
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
+            <div className="bg-white rounded-lg p-6 border border-gray-200">
               <div className="flex items-center gap-3 mb-2">
-                <FileText className="w-5 h-5 text-blue-400" />
-                <p className="text-neutral-400 text-sm">Total Records</p>
+                <FileText className="w-5 h-5 text-blue-500" />
+                <p className="text-gray-500 text-sm">Total Records</p>
               </div>
-              <p className="text-2xl font-bold text-white">
+              <p className="text-2xl font-bold text-gray-900">
                 {analysisData.totalRecords.toLocaleString()}
               </p>
             </div>
 
             {analysisData.amountColumn && (
               <>
-                <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
+                <div className="bg-white rounded-lg p-6 border border-gray-200">
                   <div className="flex items-center gap-3 mb-2">
-                    <TrendingUp className="w-5 h-5 text-green-400" />
-                    <p className="text-neutral-400 text-sm">Total Amount</p>
+                    <TrendingUp className="w-5 h-5 text-green-500" />
+                    <p className="text-gray-500 text-sm">Total Amount</p>
                   </div>
-                  <p className="text-2xl font-bold text-white">
+                  <p className="text-2xl font-bold text-gray-900">
                     ₹{parseFloat(analysisData.summary.totalAmount).toLocaleString()}
                   </p>
                 </div>
 
-                <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
+                <div className="bg-white rounded-lg p-6 border border-gray-200">
                   <div className="flex items-center gap-3 mb-2">
-                    <BarChart3 className="w-5 h-5 text-purple-400" />
-                    <p className="text-neutral-400 text-sm">Average Amount</p>
+                    <BarChart3 className="w-5 h-5 text-purple-500" />
+                    <p className="text-gray-500 text-sm">Average Amount</p>
                   </div>
-                  <p className="text-2xl font-bold text-white">
+                  <p className="text-2xl font-bold text-gray-900">
                     ₹{parseFloat(analysisData.summary.avgAmount).toLocaleString()}
                   </p>
                 </div>
 
-                <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
+                <div className="bg-white rounded-lg p-6 border border-gray-200">
                   <div className="flex items-center gap-3 mb-2">
-                    <PieChart className="w-5 h-5 text-orange-400" />
-                    <p className="text-neutral-400 text-sm">Max Amount</p>
+                    <PieChart className="w-5 h-5 text-orange-500" />
+                    <p className="text-gray-500 text-sm">Max Amount</p>
                   </div>
-                  <p className="text-2xl font-bold text-white">
+                  <p className="text-2xl font-bold text-gray-900">
                     ₹{analysisData.summary.maxAmount !== 'N/A' 
                       ? parseFloat(analysisData.summary.maxAmount).toLocaleString() 
                       : 'N/A'}
@@ -514,8 +514,8 @@ Return as a JSON array of insight strings:
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Category Distribution */}
             {analysisData.categoryData.length > 0 ? (
-              <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
-                <h3 className="text-lg font-semibold text-white mb-4">
+              <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   Distribution by {analysisData.categoryColumn}
                 </h3>
                 <ResponsiveContainer width="100%" height={300}>
@@ -536,10 +536,10 @@ Return as a JSON array of insight strings:
                     </Pie>
                     <Tooltip 
                       contentStyle={{ 
-                        backgroundColor: '#262626', 
-                        border: '1px solid #404040',
+                        backgroundColor: '#ffffff', 
+                        border: '1px solid #e5e7eb',
                         borderRadius: '8px',
-                        color: '#fff'
+                        color: '#111827'
                       }}
                     />
                   </RePieChart>
@@ -558,28 +558,28 @@ Return as a JSON array of insight strings:
 
             {/* Time Series */}
             {analysisData.timeSeriesData.length > 0 ? (
-              <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
-                <h3 className="text-lg font-semibold text-white mb-4">
+              <div className="bg-white rounded-lg p-6 border border-gray-200">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   Trend Over Time
                 </h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <LineChart data={analysisData.timeSeriesData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#404040" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                     <XAxis 
                       dataKey="date" 
-                      stroke="#a3a3a3"
-                      tick={{ fill: '#a3a3a3' }}
+                      stroke="#6b7280"
+                      tick={{ fill: '#6b7280' }}
                     />
                     <YAxis 
-                      stroke="#a3a3a3"
-                      tick={{ fill: '#a3a3a3' }}
+                      stroke="#6b7280"
+                      tick={{ fill: '#6b7280' }}
                     />
                     <Tooltip 
                       contentStyle={{ 
-                        backgroundColor: '#262626', 
-                        border: '1px solid #404040',
+                        backgroundColor: '#ffffff', 
+                        border: '1px solid #e5e7eb',
                         borderRadius: '8px',
-                        color: '#fff'
+                        color: '#111827'
                       }}
                     />
                     <Line 
@@ -606,16 +606,16 @@ Return as a JSON array of insight strings:
 
           {/* Top Records Table */}
           {analysisData.topRecords.length > 0 && analysisData.amountColumn && (
-            <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
-              <h3 className="text-lg font-semibold text-white mb-4">
+            <div className="bg-white rounded-lg p-6 border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Top 10 Records by Amount
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-neutral-700">
+                    <tr className="border-b border-gray-200">
                       {analysisData.headers.slice(0, 6).map((header, index) => (
-                        <th key={index} className="text-left py-3 px-4 text-neutral-300 font-medium">
+                        <th key={index} className="text-left py-3 px-4 text-gray-600 font-medium">
                           {header}
                         </th>
                       ))}
@@ -623,9 +623,9 @@ Return as a JSON array of insight strings:
                   </thead>
                   <tbody>
                     {analysisData.topRecords.map((record, index) => (
-                      <tr key={index} className="border-b border-neutral-700 hover:bg-neutral-700/50">
+                      <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
                         {analysisData.headers.slice(0, 6).map((header, idx) => (
-                          <td key={idx} className="py-3 px-4 text-neutral-200">
+                          <td key={idx} className="py-3 px-4 text-gray-700">
                             {record[header]}
                           </td>
                         ))}
@@ -638,16 +638,16 @@ Return as a JSON array of insight strings:
           )}
 
           {/* Data Preview */}
-          <div className="bg-neutral-800 rounded-lg p-6 border border-neutral-700">
-            <h3 className="text-lg font-semibold text-white mb-4">
+          <div className="bg-white rounded-lg p-6 border border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Data Preview (First 10 rows)
             </h3>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-neutral-700">
+                  <tr className="border-b border-gray-200">
                     {analysisData.headers.map((header, index) => (
-                      <th key={index} className="text-left py-2 px-3 text-neutral-300 font-medium">
+                      <th key={index} className="text-left py-2 px-3 text-gray-600 font-medium">
                         {header}
                       </th>
                     ))}
@@ -655,9 +655,9 @@ Return as a JSON array of insight strings:
                 </thead>
                 <tbody>
                   {analysisData.rawData.slice(0, 10).map((record, index) => (
-                    <tr key={index} className="border-b border-neutral-700 hover:bg-neutral-700/50">
+                    <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
                       {analysisData.headers.map((header, idx) => (
-                        <td key={idx} className="py-2 px-3 text-neutral-200">
+                        <td key={idx} className="py-2 px-3 text-gray-700">
                           {record[header]}
                         </td>
                       ))}

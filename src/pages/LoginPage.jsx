@@ -1,16 +1,13 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { 
   signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword,
   signInWithPopup,
-  GoogleAuthProvider,
-  GithubAuthProvider
+  GoogleAuthProvider
 } from 'firebase/auth'
 import { auth } from '../firebase'
-import { CreditCard, ArrowRight, AlertCircle, Home, BarChart3, Info } from 'lucide-react'
-import { CanvasRevealEffect } from '../components/ui/CanvasRevealEffect'
+import { CreditCard, AlertCircle, Home, BarChart3, Info } from 'lucide-react'
 import { NavBar } from '../components/ui/Dock'
 
 export default function LoginPage() {
@@ -19,8 +16,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [initialCanvasVisible, setInitialCanvasVisible] = useState(true)
-  const [reverseCanvasVisible, setReverseCanvasVisible] = useState(false)
 
   const navItems = [
     { name: 'Home', url: '/', icon: Home },
@@ -42,19 +37,31 @@ export default function LoginPage() {
     setError('')
     setLoading(true)
 
+    console.log('Attempting email login...', { email })
+
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      const result = await signInWithEmailAndPassword(auth, email, password)
+      console.log('Login successful:', result.user.email)
       
-      // Show success animation
-      setReverseCanvasVisible(true)
-      setTimeout(() => setInitialCanvasVisible(false), 50)
-      
-      // Navigate to dashboard after animation
-      setTimeout(() => {
-        navigate('/dashboard')
-      }, 2000)
+      // Navigate to dashboard
+      navigate('/dashboard')
     } catch (err) {
-      setError(err.message || 'Failed to sign in. Please check your credentials.')
+      console.error('Login error:', err)
+      let errorMessage = 'Failed to sign in. '
+      
+      if (err.code === 'auth/user-not-found') {
+        errorMessage = 'No account found with this email. Please sign up first.'
+      } else if (err.code === 'auth/wrong-password') {
+        errorMessage = 'Incorrect password. Please try again.'
+      } else if (err.code === 'auth/invalid-email') {
+        errorMessage = 'Invalid email address format.'
+      } else if (err.code === 'auth/too-many-requests') {
+        errorMessage = 'Too many failed attempts. Please try again later.'
+      } else {
+        errorMessage = err.message || 'Failed to sign in. Please check your credentials.'
+      }
+      
+      setError(errorMessage)
       setLoading(false)
     }
   }
@@ -62,51 +69,68 @@ export default function LoginPage() {
   const handleGoogleSignIn = async () => {
     setError('')
     setLoading(true)
+    console.log('Attempting Google sign-in...')
+    
     try {
       const provider = new GoogleAuthProvider()
-      await signInWithPopup(auth, provider)
+      const result = await signInWithPopup(auth, provider)
+      console.log('Google login successful:', result.user.email)
       
-      // Show success animation before navigating
-      setReverseCanvasVisible(true)
-      setTimeout(() => setInitialCanvasVisible(false), 50)
-      
-      setTimeout(() => navigate('/dashboard'), 2000)
+      // Navigate to dashboard
+      navigate('/dashboard')
     } catch (err) {
-      setError(err.message || 'Failed to sign in with Google.')
+      console.error('Google sign-in error:', err)
+      let errorMessage = 'Failed to sign in with Google. '
+      
+      if (err.code === 'auth/popup-closed-by-user') {
+        errorMessage = 'Sign-in popup was closed. Please try again.'
+      } else if (err.code === 'auth/popup-blocked') {
+        errorMessage = 'Pop-up was blocked by browser. Please allow pop-ups for this site.'
+      } else {
+        errorMessage = err.message || 'Failed to sign in with Google.'
+      }
+      
+      setError(errorMessage)
       setLoading(false)
     }
   }
 
   return (
-    <div className="flex w-full flex-col min-h-screen bg-black relative overflow-hidden">
-      {/* Canvas Background */}
+    <div className="flex w-full flex-col min-h-screen bg-[#030303] relative overflow-hidden">
+      {/* Animated Background - No WebGL */}
       <div className="absolute inset-0 z-0">
-        {initialCanvasVisible && (
-          <div className="absolute inset-0">
-            <CanvasRevealEffect
-              animationSpeed={3}
-              containerClassName="bg-black"
-              colors={[[255, 255, 255], [255, 255, 255]]}
-              dotSize={6}
-              reverse={false}
-            />
-          </div>
-        )}
+        {/* Gradient mesh background */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,_rgba(99,102,241,0.1)_0%,_transparent_50%),radial-gradient(circle_at_80%_80%,_rgba(236,72,153,0.1)_0%,_transparent_50%)]" />
         
-        {reverseCanvasVisible && (
-          <div className="absolute inset-0">
-            <CanvasRevealEffect
-              animationSpeed={4}
-              containerClassName="bg-black"
-              colors={[[255, 255, 255], [255, 255, 255]]}
-              dotSize={6}
-              reverse={true}
-            />
-          </div>
-        )}
+        {/* Animated gradient orbs */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-rose-500/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.5, 0.3, 0.5],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
         
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,1)_0%,_transparent_100%)]" />
-        <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-black to-transparent" />
+        {/* Gradient overlays */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0.8)_0%,_rgba(0,0,0,1)_100%)]" />
+        <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-[#030303] to-transparent" />
       </div>
 
       {/* Navigation */}
